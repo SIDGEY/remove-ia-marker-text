@@ -5,33 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Nettoyez les artefacts Markdown et caractères invisibles des textes générés par IA avant de les publier sur LinkedIn."
+      content="Nettoyez et reformatez les textes générés par IA avant de les publier sur LinkedIn."
     />
-    <title>CleanPost — Texte propre pour LinkedIn</title>
+    <title>CleanPost — Formatter un texte pour LinkedIn</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main class="page-shell">
       <header class="hero">
         <div class="brand">CleanPost</div>
-        <h1>Du texte IA au post LinkedIn propre.</h1>
+        <h1>Du texte IA au post LinkedIn lisible.</h1>
         <p>
-          Collez un texte généré par ChatGPT, Claude ou autre. L'outil retire les
-          artefacts Markdown, caractères invisibles et mises en forme gênantes,
-          sans envoyer votre texte nulle part.
+          Collez un texte généré par ChatGPT, Claude ou autre. CleanPost retire les
+          artefacts techniques, nettoie la mise en forme et peut aérer le texte
+          pour obtenir un post prêt à copier-coller.
         </p>
       </header>
 
-      <section class="workspace" aria-label="Nettoyeur de texte LinkedIn">
+      <section class="workspace" aria-label="Nettoyeur et formatter LinkedIn">
         <article class="panel">
           <div class="panel-header">
             <div>
               <span class="eyebrow">01</span>
               <h2>Texte original</h2>
             </div>
-            <button id="clearButton" class="button button-ghost" type="button">
-              Effacer
-            </button>
+            <button id="clearButton" class="button button-ghost" type="button">Effacer</button>
           </div>
 
           <textarea
@@ -49,7 +47,7 @@
 
         <div class="action-column">
           <button id="cleanButton" class="button button-primary" type="button">
-            <span>Nettoyer</span>
+            <span>Formatter</span>
             <span aria-hidden="true">→</span>
           </button>
           <span class="local-note">100 % local</span>
@@ -61,9 +59,7 @@
               <span class="eyebrow">02</span>
               <h2>Prêt pour LinkedIn</h2>
             </div>
-            <button id="copyButton" class="button button-copy" type="button" disabled>
-              Copier
-            </button>
+            <button id="copyButton" class="button button-copy" type="button" disabled>Copier</button>
           </div>
 
           <textarea
@@ -81,56 +77,88 @@
       </section>
 
       <section class="options" aria-labelledby="optionsTitle">
-        <div>
+        <div class="options-heading">
           <span class="eyebrow">Réglages</span>
-          <h2 id="optionsTitle">Ce qu'on nettoie</h2>
+          <h2 id="optionsTitle">Ce qu'on applique</h2>
         </div>
 
         <label class="option-card">
           <input id="removeMarkdown" type="checkbox" checked />
-          <span>
-            <strong>Markdown</strong>
-            <small># titres, **gras**, _italique_, blocs de code…</small>
-          </span>
+          <span><strong>Markdown</strong><small># titres, **gras**, _italique_, blocs de code…</small></span>
         </label>
 
         <label class="option-card">
           <input id="normalizeLists" type="checkbox" checked />
-          <span>
-            <strong>Listes</strong>
-            <small>Uniformise les puces pour un copier/coller LinkedIn propre.</small>
-          </span>
+          <span><strong>Listes</strong><small>Uniformise les puces et numérotations.</small></span>
         </label>
 
         <label class="option-card">
           <input id="removeInvisible" type="checkbox" checked />
-          <span>
-            <strong>Caractères invisibles</strong>
-            <small>Zero-width, BOM, espaces insécables et séparateurs parasites.</small>
-          </span>
+          <span><strong>Caractères invisibles</strong><small>Zero-width, BOM et espaces parasites.</small></span>
         </label>
 
         <label class="option-card">
           <input id="normalizeSpacing" type="checkbox" checked />
-          <span>
-            <strong>Espacement</strong>
-            <small>Supprime les espaces finaux et les grandes zones vides.</small>
-          </span>
+          <span><strong>Espacement</strong><small>Nettoie les lignes vides et espaces inutiles.</small></span>
         </label>
+
+        <label class="option-card option-card-featured">
+          <input id="linkedinFormatting" type="checkbox" checked />
+          <span><strong>Aération LinkedIn</strong><small>Découpe les gros paragraphes sans réécrire le contenu.</small></span>
+        </label>
+      </section>
+
+      <section class="insights-grid">
+        <article class="analysis-card">
+          <div class="section-title">
+            <div>
+              <span class="eyebrow">Analyse</span>
+              <h2>Lisibilité du post</h2>
+            </div>
+            <span id="readabilityScore" class="score-badge">—</span>
+          </div>
+          <div id="analysisList" class="analysis-list">
+            <p class="empty-state">Formatez un texte pour afficher les recommandations.</p>
+          </div>
+        </article>
+
+        <article class="preview-card">
+          <div class="section-title">
+            <div>
+              <span class="eyebrow">Aperçu</span>
+              <h2>Dans le feed</h2>
+            </div>
+            <span class="preview-label">Simulation</span>
+          </div>
+
+          <div class="linkedin-card">
+            <div class="linkedin-author">
+              <div class="avatar">M</div>
+              <div>
+                <strong>Votre nom</strong>
+                <span>Votre titre • 1 min</span>
+              </div>
+            </div>
+            <div id="linkedinPreview" class="linkedin-preview">
+              Votre aperçu LinkedIn apparaîtra ici.
+            </div>
+            <div class="linkedin-actions" aria-hidden="true">
+              <span>J’aime</span><span>Commenter</span><span>Republier</span><span>Envoyer</span>
+            </div>
+          </div>
+        </article>
       </section>
 
       <section class="notice">
         <strong>À savoir :</strong>
         <span>
-          l'outil ne prétend pas « détecter l'IA ». Il retire uniquement des
-          marqueurs techniques et artefacts de mise en forme souvent présents
-          dans les textes copiés depuis des assistants IA.
+          CleanPost ne prétend pas rendre un texte « indétectable par l'IA ». Il retire des
+          marqueurs techniques et améliore sa présentation sans changer les idées écrites.
         </span>
       </section>
     </main>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
     <script src="./app.js" defer></script>
   </body>
 </html>
