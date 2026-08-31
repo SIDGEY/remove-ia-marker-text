@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Nettoyez les artefacts Markdown et caractères invisibles des textes générés par IA avant de les publier sur LinkedIn."
+    />
+    <title>CleanPost — Texte propre pour LinkedIn</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="hero">
+        <div class="brand">CleanPost</div>
+        <h1>Du texte IA au post LinkedIn propre.</h1>
+        <p>
+          Collez un texte généré par ChatGPT, Claude ou autre. L'outil retire les
+          artefacts Markdown, caractères invisibles et mises en forme gênantes,
+          sans envoyer votre texte nulle part.
+        </p>
+      </header>
+
+      <section class="workspace" aria-label="Nettoyeur de texte LinkedIn">
+        <article class="panel">
+          <div class="panel-header">
+            <div>
+              <span class="eyebrow">01</span>
+              <h2>Texte original</h2>
+            </div>
+            <button id="clearButton" class="button button-ghost" type="button">
+              Effacer
+            </button>
+          </div>
+
+          <textarea
+            id="inputText"
+            spellcheck="true"
+            placeholder="Collez ici votre texte ChatGPT, Claude, Gemini…"
+            aria-label="Texte à nettoyer"
+          ></textarea>
+
+          <div class="stats" aria-live="polite">
+            <span><strong id="inputCharacters">0</strong> caractères</span>
+            <span><strong id="inputWords">0</strong> mots</span>
+          </div>
+        </article>
+
+        <div class="action-column">
+          <button id="cleanButton" class="button button-primary" type="button">
+            <span>Nettoyer</span>
+            <span aria-hidden="true">→</span>
+          </button>
+          <span class="local-note">100 % local</span>
+        </div>
+
+        <article class="panel panel-result">
+          <div class="panel-header">
+            <div>
+              <span class="eyebrow">02</span>
+              <h2>Prêt pour LinkedIn</h2>
+            </div>
+            <button id="copyButton" class="button button-copy" type="button" disabled>
+              Copier
+            </button>
+          </div>
+
+          <textarea
+            id="outputText"
+            spellcheck="true"
+            placeholder="Votre texte nettoyé apparaîtra ici. Vous pourrez encore le modifier avant de le copier."
+            aria-label="Texte nettoyé"
+          ></textarea>
+
+          <div class="stats stats-result" aria-live="polite">
+            <span><strong id="outputCharacters">0</strong> / 3 000 caractères</span>
+            <span id="linkedinStatus" class="status">En attente</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="options" aria-labelledby="optionsTitle">
+        <div>
+          <span class="eyebrow">Réglages</span>
+          <h2 id="optionsTitle">Ce qu'on nettoie</h2>
+        </div>
+
+        <label class="option-card">
+          <input id="removeMarkdown" type="checkbox" checked />
+          <span>
+            <strong>Markdown</strong>
+            <small># titres, **gras**, _italique_, blocs de code…</small>
+          </span>
+        </label>
+
+        <label class="option-card">
+          <input id="normalizeLists" type="checkbox" checked />
+          <span>
+            <strong>Listes</strong>
+            <small>Uniformise les puces pour un copier/coller LinkedIn propre.</small>
+          </span>
+        </label>
+
+        <label class="option-card">
+          <input id="removeInvisible" type="checkbox" checked />
+          <span>
+            <strong>Caractères invisibles</strong>
+            <small>Zero-width, BOM, espaces insécables et séparateurs parasites.</small>
+          </span>
+        </label>
+
+        <label class="option-card">
+          <input id="normalizeSpacing" type="checkbox" checked />
+          <span>
+            <strong>Espacement</strong>
+            <small>Supprime les espaces finaux et les grandes zones vides.</small>
+          </span>
+        </label>
+      </section>
+
+      <section class="notice">
+        <strong>À savoir :</strong>
+        <span>
+          l'outil ne prétend pas « détecter l'IA ». Il retire uniquement des
+          marqueurs techniques et artefacts de mise en forme souvent présents
+          dans les textes copiés depuis des assistants IA.
+        </span>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
