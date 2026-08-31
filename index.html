@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Nettoyez et reformatez les textes générés par IA avant de les publier sur LinkedIn."
-    />
+    <meta name="description" content="Nettoyez, auditez et reformatez les textes générés par IA avant de les publier sur LinkedIn." />
     <title>CleanPost — Formatter un texte pour LinkedIn</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -16,29 +13,18 @@
         <div class="brand">CleanPost</div>
         <h1>Du texte IA au post LinkedIn lisible.</h1>
         <p>
-          Collez un texte généré par ChatGPT, Claude ou autre. CleanPost retire les
-          artefacts techniques, nettoie la mise en forme et peut aérer le texte
-          pour obtenir un post prêt à copier-coller.
+          Collez un texte généré par ChatGPT, Claude ou autre. CleanPost retire les artefacts techniques,
+          nettoie la mise en forme, aère le texte et vous indique précisément ce qui a été modifié.
         </p>
       </header>
 
       <section class="workspace" aria-label="Nettoyeur et formatter LinkedIn">
         <article class="panel">
           <div class="panel-header">
-            <div>
-              <span class="eyebrow">01</span>
-              <h2>Texte original</h2>
-            </div>
+            <div><span class="eyebrow">01</span><h2>Texte original</h2></div>
             <button id="clearButton" class="button button-ghost" type="button">Effacer</button>
           </div>
-
-          <textarea
-            id="inputText"
-            spellcheck="true"
-            placeholder="Collez ici votre texte ChatGPT, Claude, Gemini…"
-            aria-label="Texte à nettoyer"
-          ></textarea>
-
+          <textarea id="inputText" spellcheck="true" placeholder="Collez ici votre texte ChatGPT, Claude, Gemini…" aria-label="Texte à nettoyer"></textarea>
           <div class="stats" aria-live="polite">
             <span><strong id="inputCharacters">0</strong> caractères</span>
             <span><strong id="inputWords">0</strong> mots</span>
@@ -46,29 +32,16 @@
         </article>
 
         <div class="action-column">
-          <button id="cleanButton" class="button button-primary" type="button">
-            <span>Formatter</span>
-            <span aria-hidden="true">→</span>
-          </button>
+          <button id="cleanButton" class="button button-primary" type="button"><span>Formatter</span><span aria-hidden="true">→</span></button>
           <span class="local-note">100 % local</span>
         </div>
 
         <article class="panel panel-result">
           <div class="panel-header">
-            <div>
-              <span class="eyebrow">02</span>
-              <h2>Prêt pour LinkedIn</h2>
-            </div>
+            <div><span class="eyebrow">02</span><h2>Prêt pour LinkedIn</h2></div>
             <button id="copyButton" class="button button-copy" type="button" disabled>Copier</button>
           </div>
-
-          <textarea
-            id="outputText"
-            spellcheck="true"
-            placeholder="Votre texte nettoyé apparaîtra ici. Vous pourrez encore le modifier avant de le copier."
-            aria-label="Texte nettoyé"
-          ></textarea>
-
+          <textarea id="outputText" spellcheck="true" placeholder="Votre texte nettoyé apparaîtra ici. Vous pourrez encore le modifier avant de le copier." aria-label="Texte nettoyé"></textarea>
           <div class="stats stats-result" aria-live="polite">
             <span><strong id="outputCharacters">0</strong> / 3 000 caractères</span>
             <span id="linkedinStatus" class="status">En attente</span>
@@ -77,87 +50,51 @@
       </section>
 
       <section class="options" aria-labelledby="optionsTitle">
-        <div class="options-heading">
-          <span class="eyebrow">Réglages</span>
-          <h2 id="optionsTitle">Ce qu'on applique</h2>
+        <div class="options-heading"><span class="eyebrow">Réglages</span><h2 id="optionsTitle">Ce qu'on applique</h2></div>
+        <label class="option-card"><input id="removeMarkdown" type="checkbox" checked /><span><strong>Markdown</strong><small># titres, **gras**, _italique_, code, liens…</small></span></label>
+        <label class="option-card"><input id="normalizeLists" type="checkbox" checked /><span><strong>Listes</strong><small>Uniformise les puces et numérotations.</small></span></label>
+        <label class="option-card"><input id="removeInvisible" type="checkbox" checked /><span><strong>Caractères invisibles</strong><small>Zero-width, BOM et espaces parasites.</small></span></label>
+        <label class="option-card"><input id="normalizeSpacing" type="checkbox" checked /><span><strong>Espacement</strong><small>Nettoie les lignes vides et espaces inutiles.</small></span></label>
+        <label class="option-card option-card-featured"><input id="linkedinFormatting" type="checkbox" checked /><span><strong>Aération LinkedIn</strong><small>Découpe les gros paragraphes sans réécrire.</small></span></label>
+        <label class="option-card option-card-advanced"><input id="advancedAiCleanup" type="checkbox" checked /><span><strong>Tics IA</strong><small>Retire seulement les formulations d'encadrement génériques et isolées.</small></span></label>
+      </section>
+
+      <section class="audit-card">
+        <div class="section-title">
+          <div><span class="eyebrow">Transparence</span><h2>Ce que CleanPost a modifié</h2></div>
+          <span id="auditCount" class="score-badge">0</span>
         </div>
-
-        <label class="option-card">
-          <input id="removeMarkdown" type="checkbox" checked />
-          <span><strong>Markdown</strong><small># titres, **gras**, _italique_, blocs de code…</small></span>
-        </label>
-
-        <label class="option-card">
-          <input id="normalizeLists" type="checkbox" checked />
-          <span><strong>Listes</strong><small>Uniformise les puces et numérotations.</small></span>
-        </label>
-
-        <label class="option-card">
-          <input id="removeInvisible" type="checkbox" checked />
-          <span><strong>Caractères invisibles</strong><small>Zero-width, BOM et espaces parasites.</small></span>
-        </label>
-
-        <label class="option-card">
-          <input id="normalizeSpacing" type="checkbox" checked />
-          <span><strong>Espacement</strong><small>Nettoie les lignes vides et espaces inutiles.</small></span>
-        </label>
-
-        <label class="option-card option-card-featured">
-          <input id="linkedinFormatting" type="checkbox" checked />
-          <span><strong>Aération LinkedIn</strong><small>Découpe les gros paragraphes sans réécrire le contenu.</small></span>
-        </label>
+        <div id="auditSummary" class="audit-summary">Aucune transformation pour le moment.</div>
+        <div id="auditList" class="audit-list"></div>
       </section>
 
       <section class="insights-grid">
         <article class="analysis-card">
           <div class="section-title">
-            <div>
-              <span class="eyebrow">Analyse</span>
-              <h2>Lisibilité du post</h2>
-            </div>
+            <div><span class="eyebrow">Analyse</span><h2>Lisibilité du post</h2></div>
             <span id="readabilityScore" class="score-badge">—</span>
           </div>
-          <div id="analysisList" class="analysis-list">
-            <p class="empty-state">Formatez un texte pour afficher les recommandations.</p>
-          </div>
+          <div id="analysisList" class="analysis-list"><p class="empty-state">Formatez un texte pour afficher les recommandations.</p></div>
         </article>
 
         <article class="preview-card">
           <div class="section-title">
-            <div>
-              <span class="eyebrow">Aperçu</span>
-              <h2>Dans le feed</h2>
-            </div>
+            <div><span class="eyebrow">Aperçu</span><h2>Dans le feed</h2></div>
             <span class="preview-label">Simulation</span>
           </div>
-
           <div class="linkedin-card">
-            <div class="linkedin-author">
-              <div class="avatar">M</div>
-              <div>
-                <strong>Votre nom</strong>
-                <span>Votre titre • 1 min</span>
-              </div>
-            </div>
-            <div id="linkedinPreview" class="linkedin-preview">
-              Votre aperçu LinkedIn apparaîtra ici.
-            </div>
-            <div class="linkedin-actions" aria-hidden="true">
-              <span>J’aime</span><span>Commenter</span><span>Republier</span><span>Envoyer</span>
-            </div>
+            <div class="linkedin-author"><div class="avatar">M</div><div><strong>Votre nom</strong><span>Votre titre • 1 min</span></div></div>
+            <div id="linkedinPreview" class="linkedin-preview">Votre aperçu LinkedIn apparaîtra ici.</div>
+            <div class="linkedin-actions" aria-hidden="true"><span>J’aime</span><span>Commenter</span><span>Republier</span><span>Envoyer</span></div>
           </div>
         </article>
       </section>
 
       <section class="notice">
         <strong>À savoir :</strong>
-        <span>
-          CleanPost ne prétend pas rendre un texte « indétectable par l'IA ». Il retire des
-          marqueurs techniques et améliore sa présentation sans changer les idées écrites.
-        </span>
+        <span>CleanPost ne prétend pas détecter ou rendre un texte « indétectable par l'IA ». Il applique des règles déterministes, visibles dans le journal ci-dessus.</span>
       </section>
     </main>
-
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="./app.js" defer></script>
   </body>
