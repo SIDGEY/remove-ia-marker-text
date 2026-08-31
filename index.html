@@ -12,48 +12,25 @@
       <header class="hero">
         <div class="brand">CleanPost</div>
         <h1>Du texte IA au post LinkedIn lisible.</h1>
-        <p>
-          Collez un texte généré par ChatGPT, Claude ou autre. CleanPost retire les artefacts techniques,
-          nettoie la mise en forme, aère le texte et vous indique précisément ce qui a été modifié.
-        </p>
+        <p>Collez un texte généré par ChatGPT, Claude ou autre. CleanPost retire les artefacts techniques, nettoie la mise en forme, aère le texte et vous indique précisément ce qui a été modifié.</p>
       </header>
 
       <section class="workspace" aria-label="Nettoyeur et formatter LinkedIn">
         <article class="panel">
-          <div class="panel-header">
-            <div><span class="eyebrow">01</span><h2>Texte original</h2></div>
-            <button id="clearButton" class="button button-ghost" type="button">Effacer</button>
-          </div>
+          <div class="panel-header"><div><span class="eyebrow">01</span><h2>Texte original</h2></div><button id="clearButton" class="button button-ghost" type="button">Effacer</button></div>
           <textarea id="inputText" spellcheck="true" placeholder="Collez ici votre texte ChatGPT, Claude, Gemini…" aria-label="Texte à nettoyer"></textarea>
-          <div class="stats" aria-live="polite">
-            <span><strong id="inputCharacters">0</strong> caractères</span>
-            <span><strong id="inputWords">0</strong> mots</span>
-          </div>
+          <div class="stats" aria-live="polite"><span><strong id="inputCharacters">0</strong> caractères</span><span><strong id="inputWords">0</strong> mots</span></div>
         </article>
-
-        <div class="action-column">
-          <button id="cleanButton" class="button button-primary" type="button"><span>Formatter</span><span aria-hidden="true">→</span></button>
-          <span class="local-note">100 % local</span>
-        </div>
-
+        <div class="action-column"><button id="cleanButton" class="button button-primary" type="button"><span>Formatter</span><span aria-hidden="true">→</span></button><span class="local-note">100 % local</span></div>
         <article class="panel panel-result">
-          <div class="panel-header">
-            <div><span class="eyebrow">02</span><h2>Prêt pour LinkedIn</h2></div>
-            <button id="copyButton" class="button button-copy" type="button" disabled>Copier</button>
-          </div>
+          <div class="panel-header"><div><span class="eyebrow">02</span><h2>Prêt pour LinkedIn</h2></div><button id="copyButton" class="button button-copy" type="button" disabled>Copier</button></div>
           <textarea id="outputText" spellcheck="true" placeholder="Votre texte nettoyé apparaîtra ici. Vous pourrez encore le modifier avant de le copier." aria-label="Texte nettoyé"></textarea>
-          <div class="stats stats-result" aria-live="polite">
-            <span><strong id="outputCharacters">0</strong> / 3 000 caractères</span>
-            <span id="linkedinStatus" class="status">En attente</span>
-          </div>
+          <div class="stats stats-result" aria-live="polite"><span><strong id="outputCharacters">0</strong> / 3 000 caractères</span><span id="linkedinStatus" class="status">En attente</span></div>
         </article>
       </section>
 
       <section class="marker-card">
-        <div class="section-title">
-          <div><span class="eyebrow">Détection</span><h2>Marqueurs dans le texte original</h2></div>
-          <span id="markerCount" class="score-badge">0</span>
-        </div>
+        <div class="section-title"><div><span class="eyebrow">Détection</span><h2>Marqueurs dans le texte original</h2></div><span id="markerCount" class="score-badge">0</span></div>
         <div id="markerLegend" class="marker-legend"></div>
         <div id="markerPreview" class="marker-preview"><span class="marker-empty">Collez un texte pour visualiser les marqueurs détectés.</span></div>
       </section>
@@ -63,48 +40,30 @@
         <label class="option-card"><input id="removeMarkdown" type="checkbox" checked /><span><strong>Markdown</strong><small># titres, **gras**, _italique_, code, liens…</small></span></label>
         <label class="option-card"><input id="normalizeLists" type="checkbox" checked /><span><strong>Listes</strong><small>Uniformise les puces et numérotations.</small></span></label>
         <label class="option-card"><input id="removeInvisible" type="checkbox" checked /><span><strong>Caractères invisibles</strong><small>Zero-width, BOM et espaces parasites.</small></span></label>
+        <label class="option-card option-card-strict"><input id="strictUnicodePurge" type="checkbox" checked /><span><strong>Purge Unicode stricte</strong><small>Supprime aussi ZWJ, variation selectors, tags Unicode et caractères “blancs” atypiques. Peut simplifier certains emojis.</small></span></label>
         <label class="option-card"><input id="normalizeSpacing" type="checkbox" checked /><span><strong>Espacement</strong><small>Nettoie les lignes vides et espaces inutiles.</small></span></label>
         <label class="option-card option-card-featured"><input id="linkedinFormatting" type="checkbox" checked /><span><strong>Aération LinkedIn</strong><small>Découpe les gros paragraphes sans réécrire.</small></span></label>
         <label class="option-card option-card-advanced"><input id="advancedAiCleanup" type="checkbox" checked /><span><strong>Tics IA</strong><small>Retire seulement les formulations d'encadrement génériques et isolées.</small></span></label>
       </section>
 
       <section class="audit-card">
-        <div class="section-title">
-          <div><span class="eyebrow">Transparence</span><h2>Ce que CleanPost a modifié</h2></div>
-          <span id="auditCount" class="score-badge">0</span>
-        </div>
+        <div class="section-title"><div><span class="eyebrow">Transparence</span><h2>Ce que CleanPost a modifié</h2></div><span id="auditCount" class="score-badge">0</span></div>
         <div id="auditSummary" class="audit-summary">Aucune transformation pour le moment.</div>
         <div id="auditList" class="audit-list"></div>
       </section>
 
       <section class="insights-grid">
-        <article class="analysis-card">
-          <div class="section-title">
-            <div><span class="eyebrow">Analyse</span><h2>Lisibilité du post</h2></div>
-            <span id="readabilityScore" class="score-badge">—</span>
-          </div>
-          <div id="analysisList" class="analysis-list"><p class="empty-state">Formatez un texte pour afficher les recommandations.</p></div>
-        </article>
-
+        <article class="analysis-card"><div class="section-title"><div><span class="eyebrow">Analyse</span><h2>Lisibilité du post</h2></div><span id="readabilityScore" class="score-badge">—</span></div><div id="analysisList" class="analysis-list"><p class="empty-state">Formatez un texte pour afficher les recommandations.</p></div></article>
         <article class="preview-card">
-          <div class="section-title">
-            <div><span class="eyebrow">Aperçu</span><h2>Dans le feed</h2></div>
-            <span class="preview-label">Simulation</span>
-          </div>
-          <div class="linkedin-card">
-            <div class="linkedin-author"><div class="avatar">M</div><div><strong>Votre nom</strong><span>Votre titre • 1 min</span></div></div>
-            <div id="linkedinPreview" class="linkedin-preview">Votre aperçu LinkedIn apparaîtra ici.</div>
-            <div class="linkedin-actions" aria-hidden="true"><span>J’aime</span><span>Commenter</span><span>Republier</span><span>Envoyer</span></div>
-          </div>
+          <div class="section-title"><div><span class="eyebrow">Aperçu</span><h2>Dans le feed</h2></div><span class="preview-label">Simulation</span></div>
+          <div class="linkedin-card"><div class="linkedin-author"><div class="avatar">M</div><div><strong>Votre nom</strong><span>Votre titre • 1 min</span></div></div><div id="linkedinPreview" class="linkedin-preview">Votre aperçu LinkedIn apparaîtra ici.</div><div class="linkedin-actions" aria-hidden="true"><span>J’aime</span><span>Commenter</span><span>Republier</span><span>Envoyer</span></div></div>
         </article>
       </section>
 
-      <section class="notice">
-        <strong>À savoir :</strong>
-        <span>CleanPost ne prétend pas détecter ou rendre un texte « indétectable par l'IA ». Il applique des règles déterministes, visibles dans le journal ci-dessus.</span>
-      </section>
+      <section class="notice"><strong>À savoir :</strong><span>CleanPost supprime les artefacts Unicode et de formatage détectables dans le texte. Cela ne garantit pas la suppression d'un éventuel watermark statistique basé sur le choix des mots.</span></section>
     </main>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="./app.js" defer></script>
+    <script src="./strict-unicode.js" defer></script>
   </body>
 </html>
